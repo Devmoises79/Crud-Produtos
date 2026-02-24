@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Produtos</title>
+    <style>
+        body { font-family: Arial; margin: 20px; }
+        input, button { margin: 5px; padding: 5px; }
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+    </style>
+</head>
+<body>
+    <h1>Lista de Produtos</h1>
+    
+    <div>
+        <h2>Adicionar Produto</h2>
+        <input type="text" id="nome" placeholder="Nome">
+        <input type="number" id="preco" placeholder="Preco" step="0.01">
+        <input type="number" id="quantidade" placeholder="Quantidade">
+        <button onclick="adicionarProduto()">Adicionar</button>
+    </div>
+
+    <h2>Produtos</h2>
+    <table id="tabela-produtos">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Preco</th>
+                <th>Quantidade</th>
+                <th>Acoes</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script>
+        async function carregarProdutos() {
+            const response = await fetch('/api/produtos');
+            const produtos = await response.json();
+            const tbody = document.querySelector('#tabela-produtos tbody');
+            tbody.innerHTML = '';
+            
+            produtos.forEach(produto => {
+                tbody.innerHTML += `
+                    <tr>
+                        <td>${produto.id}</td>
+                        <td>${produto.nome}</td>
+                        <td>R$ ${produto.preco}</td>
+                        <td>${produto.quantidade}</td>
+                        <td>
+                            <button onclick="deletarProduto(${produto.id})">Deletar</button>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        async function adicionarProduto() {
+            const nome = document.getElementById('nome').value;
+            const preco = document.getElementById('preco').value;
+            const quantidade = document.getElementById('quantidade').value;
+
+            const response = await fetch('/api/produtos', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ nome, preco: parseFloat(preco), quantidade: parseInt(quantidade) })
+            });
+
+            if (response.ok) {
+                carregarProdutos();
+                document.getElementById('nome').value = '';
+                document.getElementById('preco').value = '';
+                document.getElementById('quantidade').value = '';
+            }
+        }
+
+        async function deletarProduto(id) {
+            const response = await fetch(`/api/produtos/${id}`, { method: 'DELETE' });
+            if (response.ok) {
+                carregarProdutos();
+            }
+        }
+
+        // Carregar produtos ao iniciar
+        carregarProdutos();
+    </script>
+</body>
+</html>
