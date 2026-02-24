@@ -139,7 +139,6 @@ C:\Users\MOISÉS\Desktop\MeuProjetoSQLite\obj\Debug\net10.0\rjimswa.dswa.cache.j
 C:\Users\MOISÉS\Desktop\MeuProjetoSQLite\obj\Debug\net10.0\rjsmrazor.dswa.cache.json
 C:\Users\MOISÉS\Desktop\MeuProjetoSQLite\obj\Debug\net10.0\rjsmcshtml.dswa.cache.json
 C:\Users\MOISÉS\Desktop\MeuProjetoSQLite\obj\Debug\net10.0\scopedcss\bundle\MeuProjetoSQLite.styles.css
-C:\Users\MOISÉS\Desktop\MeuProjetoSQLite\obj\Debug\net10.0\compressed\pektymvnrj-{0}-nhw8d8p5ex-nhw8d8p5ex.gz
 C:\Users\MOISÉS\Desktop\MeuProjetoSQLite\obj\Debug\net10.0\staticwebassets.build.json
 C:\Users\MOISÉS\Desktop\MeuProjetoSQLite\obj\Debug\net10.0\staticwebassets.build.json.cache
 C:\Users\MOISÉS\Desktop\MeuProjetoSQLite\obj\Debug\net10.0\staticwebassets.development.json
@@ -151,3 +150,6 @@ C:\Users\MOISÉS\Desktop\MeuProjetoSQLite\obj\Debug\net10.0\refint\MeuProjetoSQL
 C:\Users\MOISÉS\Desktop\MeuProjetoSQLite\obj\Debug\net10.0\MeuProjetoSQLite.pdb
 C:\Users\MOISÉS\Desktop\MeuProjetoSQLite\obj\Debug\net10.0\MeuProjetoSQLite.genruntimeconfig.cache
 C:\Users\MOISÉS\Desktop\MeuProjetoSQLite\obj\Debug\net10.0\ref\MeuProjetoSQLite.dll
+C:\Users\MOISÉS\Desktop\MeuProjetoSQLite\obj\Debug\net10.0\MeuProjetoSQLite.sourcelink.json
+C:\Users\MOISÉS\Desktop\MeuProjetoSQLite\obj\Debug\net10.0\compressed\pektymvnrj-{0}-lru9zxmo8z-lru9zxmo8z.gz
+C:\Users\MOISÉS\Desktop\MeuProjetoSQLite\obj\Debug\net10.0\compressed\cxa4ljnuqe-{0}-a9g1ywhjff-a9g1ywhjff.gz

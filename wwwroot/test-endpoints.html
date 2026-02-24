@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Teste de Endpoints</title>
+    <style>
+        body { font-family: Arial; margin: 20px; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .endpoint { border: 1px solid #ddd; padding: 15px; margin: 10px 0; border-radius: 5px; }
+        button { padding: 10px; margin: 5px; cursor: pointer; }
+        .success { color: green; }
+        .error { color: red; }
+        pre { background: #f4f4f4; padding: 10px; overflow: auto; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Teste de Endpoints - Produtos API</h1>
+        
+        <div class="endpoint">
+            <h3>GET /api/produtos</h3>
+            <button onclick="testarGetTodos()">Listar Todos</button>
+            <div id="result-get-todos"></div>
+        </div>
+
+        <div class="endpoint">
+            <h3>GET /api/produtos/{id}</h3>
+            <input type="number" id="getId" value="1" placeholder="ID">
+            <button onclick="testarGetPorId()">Buscar por ID</button>
+            <div id="result-get-id"></div>
+        </div>
+
+        <div class="endpoint">
+            <h3>POST /api/produtos</h3>
+            <input type="text" id="postNome" placeholder="Nome" value="Produto Teste">
+            <input type="number" id="postPreco" placeholder="Preço" value="99.99">
+            <input type="number" id="postQtd" placeholder="Quantidade" value="10">
+            <button onclick="testarPost()">Criar Produto</button>
+            <div id="result-post"></div>
+        </div>
+
+        <div class="endpoint">
+            <h3>PUT /api/produtos/{id}</h3>
+            <input type="number" id="putId" placeholder="ID" value="1">
+            <input type="text" id="putNome" placeholder="Novo Nome" value="Produto Atualizado">
+            <input type="number" id="putPreco" placeholder="Novo Preço" value="149.99">
+            <input type="number" id="putQtd" placeholder="Nova Quantidade" value="5">
+            <button onclick="testarPut()">Atualizar</button>
+            <div id="result-put"></div>
+        </div>
+
+        <div class="endpoint">
+            <h3>DELETE /api/produtos/{id}</h3>
+            <input type="number" id="deleteId" placeholder="ID" value="1">
+            <button onclick="testarDelete()">Deletar</button>
+            <div id="result-delete"></div>
+        </div>
+    </div>
+
+    <script>
+        const baseUrl = 'https://localhost:5001';
+
+        async function testarGetTodos() {
+            try {
+                const response = await fetch(`${baseUrl}/api/produtos`);
+                const data = await response.json();
+                document.getElementById('result-get-todos').innerHTML = `
+                    <div class="${response.ok ? 'success' : 'error'}">
+                        Status: ${response.status}<br>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    </div>
+                `;
+            } catch (error) {
+                document.getElementById('result-get-todos').innerHTML = `
+                    <div class="error">Erro: ${error.message}</div>
+                `;
+            }
+        }
+
+        async function testarGetPorId() {
+            const id = document.getElementById('getId').value;
+            try {
+                const response = await fetch(`${baseUrl}/api/produtos/${id}`);
+                const data = await response.json();
+                document.getElementById('result-get-id').innerHTML = `
+                    <div class="${response.ok ? 'success' : 'error'}">
+                        Status: ${response.status}<br>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    </div>
+                `;
+            } catch (error) {
+                document.getElementById('result-get-id').innerHTML = `
+                    <div class="error">Erro: ${error.message}</div>
+                `;
+            }
+        }
+
+        async function testarPost() {
+            const produto = {
+                nome: document.getElementById('postNome').value,
+                preco: parseFloat(document.getElementById('postPreco').value),
+                quantidade: parseInt(document.getElementById('postQtd').value)
+            };
+
+            try {
+                const response = await fetch(`${baseUrl}/api/produtos`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(produto)
+                });
+                const data = await response.json();
+                document.getElementById('result-post').innerHTML = `
+                    <div class="${response.ok ? 'success' : 'error'}">
+                        Status: ${response.status}<br>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    </div>
+                `;
+            } catch (error) {
+                document.getElementById('result-post').innerHTML = `
+                    <div class="error">Erro: ${error.message}</div>
+                `;
+            }
+        }
+
+        async function testarPut() {
+            const id = document.getElementById('putId').value;
+            const produto = {
+                id: parseInt(id),
+                nome: document.getElementById('putNome').value,
+                preco: parseFloat(document.getElementById('putPreco').value),
+                quantidade: parseInt(document.getElementById('putQtd').value)
+            };
+
+            try {
+                const response = await fetch(`${baseUrl}/api/produtos/${id}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(produto)
+                });
+                
+                let data = null;
+                try {
+                    data = await response.json();
+                } catch {
+                    data = response.status === 204 ? "Atualizado com sucesso (No Content)" : "Sem conteúdo";
+                }
+
+                document.getElementById('result-put').innerHTML = `
+                    <div class="${response.ok ? 'success' : 'error'}">
+                        Status: ${response.status}<br>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    </div>
+                `;
+            } catch (error) {
+                document.getElementById('result-put').innerHTML = `
+                    <div class="error">Erro: ${error.message}</div>
+                `;
+            }
+        }
+
+        async function testarDelete() {
+            const id = document.getElementById('deleteId').value;
+            try {
+                const response = await fetch(`${baseUrl}/api/produtos/${id}`, {
+                    method: 'DELETE'
+                });
+                
+                document.getElementById('result-delete').innerHTML = `
+                    <div class="${response.ok ? 'success' : 'error'}">
+                        Status: ${response.status}<br>
+                        Mensagem: ${response.status === 204 ? 'Deletado com sucesso' : 'Erro ao deletar'}
+                    </div>
+                `;
+            } catch (error) {
+                document.getElementById('result-delete').innerHTML = `
+                    <div class="error">Erro: ${error.message}</div>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>

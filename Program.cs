@@ -3,7 +3,7 @@ using MeuProjetoSQLite.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Adicionar serviços ao container
+// Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -14,6 +14,13 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 var app = builder.Build();
 
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
 // Criar o banco de dados automaticamente
 using (var scope = app.Services.CreateScope())
 {
@@ -21,15 +28,9 @@ using (var scope = app.Services.CreateScope())
     dbContext.Database.EnsureCreated();
 }
 
-// Configure o pipeline de requisições HTTP
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
 app.UseDefaultFiles();
 app.UseStaticFiles();
+
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
