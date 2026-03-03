@@ -30,7 +30,7 @@ API RESTful para gerenciamento de produtos/contatos, desenvolvida com ASP.NET Co
 
 ## 📁 Estrutura do Projeto
 
-```text
+```bash
 AgendaContatos/
 ├── Controllers/ # Controladores da API
 │ └── ProdutosController.cs
@@ -43,7 +43,7 @@ AgendaContatos/
 ├── Program.cs # Configuração da aplicação
 ├── appsettings.json # Configurações do banco de dados
 └── AgendaContatos.csproj # Arquivo de projeto
-text
+```
 
 ## 🏁 Como Executar
 
