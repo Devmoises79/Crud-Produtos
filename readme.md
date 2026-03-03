@@ -43,7 +43,6 @@ AgendaContatos/
 ├── Program.cs # Configuração da aplicação
 ├── appsettings.json # Configurações do banco de dados
 └── AgendaContatos.csproj # Arquivo de projeto
-
 text
 
 ## 🏁 Como Executar
