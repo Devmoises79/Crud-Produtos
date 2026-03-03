@@ -29,6 +29,8 @@ API RESTful para gerenciamento de produtos/contatos, desenvolvida com ASP.NET Co
 - [Swagger UI](https://swagger.io/tools/swagger-ui/) - Documentação e testes da API
 
 ## 📁 Estrutura do Projeto
+
+```text
 AgendaContatos/
 ├── Controllers/ # Controladores da API
 │ └── ProdutosController.cs
